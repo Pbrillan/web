@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="mobile-web-app-capable" content="..."/>
+  <meta name="viewport" content="device-width=device-width, initial-scale=1, maximum-scale=0.8, user-scalable=no; shrink-to-fit=no, user-scalable=0;"/>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Tienda APP Script</title>
+  <link rel='stylesheet prefetch' href='https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css'>
+
+	<style>
+
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/templates/shop-homepage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+	body {
+  	padding-top: 56px;
+	}
+
+	 input[type='text'],input[type='number'],textarea {font-size:16px;} 
+
+	</style>
+
+ 
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Realiza tu pedido online</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Inicio
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contactanos ( <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+</svg> verduleriaianara@gmail.com )   ( <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-outbound-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.471 17.471 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5z"/>
+</svg> 3471-5xxxxxx)
+</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <h1 class="my-4"> IANARA</h1>
+        <div class="list-group categoriasWrapper">
+        </div>
+        <div class="input-group mb-3 my-2">
+         <input type="text" class="form-control" id="txt_search" placeholder="filtrar producto" aria-label="filtrar producto" aria-describedby="button-search">
+          <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="btn-search" onclick="app.printProduct('Nombre','0');" >Buscar</button>
+        </div>
+        </div>
+  
+      </div>
+      <!-- /.col-lg-3 -->
+
+
+ <div style="position: fixed;right: 0;z-index:9999">
+       
+	  <!-- Button trigger modal https://icons.getbootstrap.com/ -->
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalPedido" >
+	  Ver  <span id="val_items"></span>
+	 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+     <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+     </svg>
+</button>
+
+    <div class="alert alert-danger" role="alert" id="alert_carrito"></div>
+    <div class="alert alert-success" role="alert" id="alert_carrito_success"></div>  
+ </div>
+
+ 
+		
+      <div class="col-lg-9">
+
+          <h1 class="my-1">&nbsp;</h1>
+<!-- 
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRFNILDnrKZdifqdNmfbmFx7gho4UQ4dzLcww&usqp=CAU" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+-->
+  
+
+        <div class="row productosWrapper">
+
+          <!-- contenido  -->
+        </div>
+        <!-- /.row -->
+  
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; BPG Website 2022 
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-outbound-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.471 17.471 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5z"/>
+</svg> 3471-587414</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+<!-- POPUP MODAL-->
+<!-- Modal -->
+<div class="modal fade" id="modalPedido" tabindex="-1" role="dialog" aria-labelledby="modalPedidoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Compras</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+      <div class="alert alert-danger" role="alert" id="alert_pedido"> </div>
+      <div class="alert alert-success" role="alert" id="alert_pedido_sucess"> </div>
+      
+
+
+      <table class="table table-borderless table-sm" id="tbl_carts">
+		  <thead>
+			<tr>
+			  <th scope="col">Producto</th>
+			  <th scope="col">Precio</th>
+			  <th scope="col">Cantidad</th>
+			  <th scope="col">Sub-Total</th>
+			   <th scope="col"></th>
+			</tr>
+		  </thead>
+		  <tbody>
+					
+		  </tbody>
+		</table>
+
+<form>
+  <div class="form-group row">
+    <label for="txt_nombre" class="col-sm-2 col-form-label">Nombre</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control form-control-sm" id="txt_nombre"/>
+            
+    </div>
+  </div>
+   <div class="form-group row">
+    <label for="txt_celular" class="col-sm-2 col-form-label">Celular</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control form-control-sm" id="txt_celular"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="txt_direccion" class="col-sm-2 col-form-label">Direccion</label>
+    <div class="col-sm-10">
+      <textarea class="form-control form-control-sm" id="txt_direccion" rows="2"></textarea>
+    </div>
+  </div>
+</form>
+
+ </div>
+      <div class="modal-footer">
+	    TOTAL    <span id="val_total"></span>
+        <button type="button" class="btn btn-secondary" id="modal_cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="app.savePedido();">Confirmar Pedido</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- POPUP-->
+
+
+  <!-- Bootstrap core JavaScript -->
+  <?!= include('Javascript'); ?>
+  
+</body>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<script src='https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js'></script>
+
+<script text="text/javascript">
+	
+var app = window.app || {},
+business_paypal = ''; // aquí va tu correo electrónico de paypal
+
+(function($){
+	'use strict';
+
+	//no coflict con underscores
+
+	app.init = function(){
+        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {Total:0.0,Items:0,Data:[]};
+        app.printCart(cart);
+	}
+    
+    app.categoryLoad = function(categoria_string){
+       
+       var categoria_json=JSON.parse(categoria_string);
+       var wrapper = $('.categoriasWrapper');
+       var contenido = '';
+       var categorias  = [];
+       for (var i = 0; i < categoria_json.user.length; i++) {  
+           contenido+= ' <a href="#" class="list-group-item" onclick="app.printProduct(\'Categoria\',\''+categoria_json.user[i].categoria+'\');" >'+categoria_json.user[i].categoria+'</a>';            
+        }
+       
+        wrapper.html(contenido)
+		localStorage.setItem('categoria_json',JSON.stringify(categoria_json))
+	}
+
+
+    app.printProduct= function(tipo,filtro){
+        
+        var producto_json=JSON.parse(localStorage.getItem('producto_json'));
+      	var wrapper = $('.productosWrapper');
+     	var contenido = '';
+	
+        for (var i = 0; i < producto_json.user.length; i++) {             
+
+			if(producto_json.user[i].stock > 0){
+                
+                if(tipo=="Categoria" && filtro!="TODOS"){
+                  if(producto_json.user[i].categoria != filtro){
+                    continue;
+                  }
+                }
+                if(tipo=="Nombre"){
+                  if((producto_json.user[i].producto).toUpperCase().includes(($("#txt_search").val()).toUpperCase()) == false ){
+                    continue;
+                  }
+                }
+                
+				contenido+= '<div class="col-lg-4 col-md-6 mb-4">'
+                contenido+= '<div class="card h-100">'
+                contenido+= '<a href="#"><img class="card-img-top" src="'+producto_json.user[i].imagen+'" alt="'+producto_json.user[i].producto+'"></a>'
+                contenido+= '<div class="card-body">'
+                contenido+= '<h4 class="card-title">'
+                contenido+= '<a href="#">'+producto_json.user[i].producto+'</a>'
+                contenido+= '</h4>'
+                contenido+= '<h5>$ '+producto_json.user[i].precio+'</h5>'
+                contenido+= '<p class="card-text">'+producto_json.user[i].descripcion+'</p>'
+                contenido+= '</div>'
+                contenido+= ' <div class="card-footer input-group">	'
+                contenido+= ' <input type="text" class="form-control" id="txtcantidad_'+producto_json.user[i].id+'" name="txtcantidad_'+producto_json.user[i].id +'"  placeholder="Cantidad" aria-label="Cantidad" aria-describedby="button-addon2">'
+
+
+                contenido+= '<div class="input-group-append">'
+                contenido+= '<button class="btn btn-primary btn-sm" type="button" onclick="app.addtoCart('+producto_json.user[i].id+');" >Agregar'
+                contenido+= '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
+                contenido+= '<path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>'
+                contenido+= '</svg>'
+                contenido+= '</button>'
+                contenido+= '</div>'
+                contenido+= '</div>'
+                contenido+= '</div>'
+                contenido+= '</div>'
+                
+			}
+
+		}
+		wrapper.html(contenido);
+        
+    }
+    
+	app.productLoad = function(producto_string){
+       
+       var producto_json=JSON.parse(producto_string);
+       localStorage.setItem('producto_json',JSON.stringify(producto_json));
+       app.printProduct("Categoria","TODOS");
+       
+	}
+    
+    
+    app.deleteCart = function(id){
+       
+        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {Total:0.0,Items:0,Data:[]};
+        for (var i = 0; i < cart.Data.length; i++) {             
+            if(cart.Data[i].id==id){
+              cart.Total=parseFloat(parseFloat(cart.Total).toFixed(2)-parseFloat(cart.Data[i].subtotal).toFixed(2)).toFixed(2);
+              cart.Items=parseInt(cart.Items) - 1;   
+              cart.Data.splice(i,1);                  
+              break;
+            }    
+        }
+        localStorage.setItem('cart',JSON.stringify(cart));
+        app.printCart(cart);
+        $("#alert_pedido_sucess").text("Se elimino el registro");
+                $("#alert_pedido_sucess").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_pedido_sucess").slideUp(500);
+        });  
+    }
+    
+    app.printCart = function (cart){
+    
+        $('#tbl_carts tbody').empty();
+        for (var i = 0; i < cart.Data.length; i++) {             
+          var newRow =  '<tr><td>'+cart.Data[i].producto+'</td><td>$'+cart.Data[i].precio+'</td><td>'+cart.Data[i].cantidad+'</td><td>$'+cart.Data[i].subtotal+'</td>';
+          newRow+= ' <td><button type="button" onclick="app.deleteCart('+cart.Data[i].id+');" class="btn btn-primary btn-sm"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">';
+          newRow+= '   <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>';
+          newRow+= '</svg></button></td></tr>';
+          $("#tbl_carts tbody").append(newRow);         
+        }     
+        $('#val_total').text(cart.Total);
+        $('#val_items').text(cart.Items);
+        $("#alert_pedido").hide();
+        $("#alert_carrito").hide();
+        $("#alert_pedido_sucess").hide();               
+        $("#alert_carrito_success").hide(); 
+        
+    }
+	
+
+    app.addtoCart = function(id){
+	
+        var producto_json = JSON.parse(localStorage.getItem('producto_json'));
+        for (var i = 0; i < producto_json.user.length; i++) {             
+         if(producto_json.user[i].id==id){
+            var cant = isNaN(parseInt($('#txtcantidad_'+id).val())) ? 0 : parseInt($('#txtcantidad_'+id).val());  
+            if (cant == 0){
+                
+                $("#alert_carrito").text("Ingrese cantidad mayor cero");
+                $("#alert_carrito").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_carrito").slideUp(500);
+                });
+              break;
+            }
+            if (cant >= producto_json.user[i].stock){
+                $("#alert_carrito").text("No existe stock para producto");
+                $("#alert_carrito").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_carrito").slideUp(500);
+                });               
+              break;
+            }
+            
+            //CAPTURANDO EL TOTAL
+            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {Total:0.0,Items:0,Data:[]};
+            var existe_producto=0;
+            for (var ij = 0; ij < cart.Data.length; ij++) {             
+                if(cart.Data[ij].id==id){
+                  existe_producto=1;             
+                  break;
+                }    
+            }
+            if (existe_producto==1){
+                $("#alert_carrito").text("Ya existe producto bandeja");
+                $("#alert_carrito").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_carrito").slideUp(500);
+                });               
+              break;
+            }
+            
+            
+            var sub_total= parseFloat((cant * producto_json.user[i].precio)).toFixed(2);
+            var total= parseFloat(sub_total)+parseFloat(cart.Total);
+            cart.Total=parseFloat(total).toFixed(2) ;
+            cart.Items=1+cart.Items;
+            cart.Data.push({id:producto_json.user[i].id,producto:producto_json.user[i].producto,precio:producto_json.user[i].precio,medida:producto_json.user[i].medida,imagen:producto_json.user[i].imagen,cantidad:parseInt(cant),subtotal:sub_total});
+            localStorage.setItem('cart',JSON.stringify(cart));
+            $('#txtcantidad_'+id).val("");
+            app.printCart(cart);
+             $("#alert_carrito_success").text("Se agrego al carrito");
+                $("#alert_carrito_success").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_carrito_success").slideUp(500);
+             });       
+            break;
+          }
+	   }
+    }
+
+	
+	app.savePedido = function(){
+    
+		var nombre= $('#txt_nombre').val();
+		var direccion=$('#txt_direccion').val();
+		var celular =$('#txt_celular').val();
+        
+        if(undefined == nombre || null == nombre || nombre == '' || nombre.length==0){
+			 $("#alert_pedido").text("Ingrese el nombre cliente");
+                $("#alert_pedido").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_pedido").slideUp(500);
+            });  
+                
+			return false;
+		}
+		if(undefined == direccion || null == direccion || direccion == '' || direccion.length==0){
+			  $("#alert_pedido").text("Ingrese la direccion cliente");
+                $("#alert_pedido").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_pedido").slideUp(500);
+            });
+			return false;
+		}
+		if(undefined == celular || null == celular || celular == '' || celular.length==0){
+			    $("#alert_pedido").text("Ingrese el celular cliente");
+                $("#alert_pedido").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_pedido").slideUp(500);
+            });
+			return false;
+		}
+        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {Total:0,Items:0,Data:[]};      
+        if(cart.Items == 0 || cart.Data.length == 0){
+            $("#alert_pedido").text("Ingrese productos al carrito");
+                $("#alert_pedido").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_pedido").slideUp(500);
+            });
+	      return false;
+        }
+        var pedido ='-';
+        for (var i = 0; i < cart.Data.length; i++) {             
+            pedido+=cart.Data[i].producto+' '+ cart.Data[i].cantidad + ' '+cart.Data[i].medida +' x '+cart.Data[i].precio+' = '+cart.Data[i].subtotal+"\n";
+        }
+        google.script.run.withSuccessHandler(app.savePedidoSuccess).pedidoSave(nombre,direccion,celular,pedido,cart.Total);
+	}
+	
+    app.savePedidoSuccess = function (mensaje){
+        localStorage.removeItem('cart');
+        $('#txt_nombre').val("");
+		$('#txt_direccion').val("");
+		$('#txt_celular').val("");    
+        $('#modal_cerrar').click(); 
+        app.init();
+            $("#alert_carrito_success").text(mensaje);
+                $("#alert_carrito_success").fadeTo(2000, 500).slideUp(500, function() {
+                  $("#alert_carrito_success").slideUp(500);
+            });
+    }
+
+  app.updatePayForm = function(){
+		//eso va a generar un formulario dinamico para paypal
+		//con los productos y sus precios
+		var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {items : []} ;
+		//var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="'+business_paypal+'">',
+		var statics = '<form action="#" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="'+business_paypal+'">';
+		var dinamic = '';
+		var wrapper = $('#submitForm');
+		wrapper.html('');
+		
+		if(undefined != cart && null != cart && cart != ''){
+			var i = 1;
+            var pedido="";
+			_.forEach(cart.items, function(prod, key) {
+            // SE CREAN LOS HIDDEN;
+					dinamic += '<input type="hidden" name="item_name_'+i+'" value="'+prod.name+'">';
+					dinamic += '<input type="hidden" name="amount_'+i+'" value="'+prod.price+'">';
+					dinamic += '<input type="hidden" name="item_number_'+i+'" value="'+prod.id+'" />';
+					dinamic += '<input type="hidden" name="quantity_'+i+'" value="'+prod.cant+'" />';
+					dinamic += '<input type="hidden" name="sub_total_'+i+'" value="'+(prod.cant*prod.price)+'" />';
+                    pedido += prod.name+" "+prod.cant+" "+prod.measure +" x "+prod.price +" = "+parseFloat(prod.cant*prod.price).toFixed(2) +"\n";                     
+				i++;
+			})
+
+			statics += dinamic + '<input type="hidden" name="txt_pedido" id="txt_pedido" value="'+pedido+'"/><button type="button" onclick="app.savePedido();" class="pay">Realizar Pedido &nbsp;<i class="ion-chevron-right"></i></button></form>'
+
+			wrapper.html(statics)
+		}
+	}
+
+	$(document).ready(function(){
+		app.init()
+		//app.getProducts()
+		//app.updatePayForm()
+		//app.masVendidos()
+        google.script.run.withSuccessHandler(app.productLoad).productLoad();
+        google.script.run.withSuccessHandler(app.categoryLoad).categoryLoad();
+
+        // $('.warning-bar-content:first',parent.document).css("border", "1px solid red");
+        // $('.warning-bar-content:first',parent.document).css("display", "none");
+        // $('.warning-bar:first',parent.document).hide();
+        // top.getElementById('warning').style.display = 'none';
+	})
+
+})(jQuery)
+
+	
+</script>
+</html>
